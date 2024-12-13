@@ -11,7 +11,6 @@ public class PoolExample {
         // создаем пул для выполнения наших задач
         //   максимальное количество созданных задач - 3
         ThreadPoolExecutor executor = new ThreadPoolExecutor(
-                // не изменяйте эти параметры
                 3, 3, 1, TimeUnit.SECONDS, new LinkedBlockingQueue<>(3));
         // сколько задач выполнилось
         AtomicInteger count = new AtomicInteger(0);
@@ -43,5 +42,7 @@ public class PoolExample {
                 return null;
             });
         }
+        executor.shutdown();
+        executor.awaitTermination(Long.MAX_VALUE, TimeUnit.SECONDS);
     }
 }
